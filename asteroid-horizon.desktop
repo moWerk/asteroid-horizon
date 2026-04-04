@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Horizon
+Categories=Applications;
+Exec=asteroid-horizon
+Icon=ios-compass-outline
+X-Asteroid-Center-Color=#003D1A
+X-Asteroid-Outer-Color=#001508
