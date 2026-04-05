@@ -54,7 +54,7 @@ Item {
     onPitchChanged: {
         if (userZero) return
         var absPitch = Math.abs(pitch)
-        if (!horizonMode && absPitch > 60) horizonMode = true
+        if (!horizonMode && absPitch > 60 && axisLock === 0) horizonMode = true
         if ( horizonMode && absPitch < 50) horizonMode = false
     }
 
@@ -211,7 +211,7 @@ Item {
             y: parent.height / 2 - height / 2
             width:  Dims.l(9)
             height: Dims.l(9)
-            name: axisLock === 1 ? "ios-lock" : "ios-unlock"
+            name: axisLock === 1 ? "ios-lock-outline" : "ios-unlock-outline"
             color: "#ffffff"
             opacity: axisLock === 1 ? 0.9 : (axisLock === 0 ? 0.9 : 0.4)
             Behavior on opacity { NumberAnimation { duration: 150 } }
@@ -244,7 +244,7 @@ Item {
             y: parent.height / 2 + scaleHalfWidth + Dims.l(2)
             width:  Dims.l(9)
             height: Dims.l(9)
-            name: axisLock === 2 ? "ios-lock" : "ios-unlock"
+            name: axisLock === 2 ? "ios-lock-outline" : "ios-unlock-outline"
             color: "#ffffff"
             opacity: axisLock === 2 ? 0.9 : (axisLock === 0 ? 0.9 : 0.4)
             Behavior on opacity { NumberAnimation { duration: 150 } }
