@@ -49,6 +49,7 @@ Item {
     // --- Horizon mode (auto, blocked by userZero) ---
     // Hysteresis: enter >60°, exit <50°
     property bool horizonMode: false
+    property real horizonRoll: Math.atan2(smoothedX, smoothedY) * 180 / Math.PI
 
     onPitchChanged: {
         if (userZero) return
@@ -113,7 +114,7 @@ Item {
         width:  parent.width
         height: parent.height
 
-        rotation: horizonMode ? -roll : 0
+        rotation: horizonMode ? horizonRoll : 0
 
         Behavior on rotation {
             SmoothedAnimation { velocity: 120; duration: 300 }
