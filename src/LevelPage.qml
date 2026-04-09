@@ -207,6 +207,7 @@ Item {
         // --- X degree label (left end of X axis) ---
         Label {
             id: xAxisLabel
+            visible: !horizonMode
             x: parent.width / 2 - scaleHalfWidth - Dims.l(4) - height / 2
             y: parent.height / 2 + width / 2
             rotation: -90
@@ -223,6 +224,7 @@ Item {
         // --- X lock icon (right end of X axis) ---
         Icon {
             id: xLockIcon
+            visible: !horizonMode
             x: parent.width / 2 + scaleHalfWidth + Dims.l(2)
             y: parent.height / 2 - height / 2
             width:  Dims.l(9)
@@ -242,6 +244,7 @@ Item {
         // --- Y degree label (top end of Y axis) ---
         Label {
             id: yAxisLabel
+            visible: !horizonMode
             x: parent.width  / 2 - width / 2
             y: parent.height / 2 - scaleHalfWidth - height - Dims.l(1)
             text: dispPitchLabel.toFixed(1) + "°"
@@ -256,6 +259,7 @@ Item {
         // --- Y lock icon (bottom end of Y axis) ---
         Icon {
             id: yLockIcon
+            visible: !horizonMode
             x: parent.width  / 2 - width  / 2
             y: parent.height / 2 + scaleHalfWidth + Dims.l(2)
             width:  Dims.l(9)
