@@ -45,6 +45,20 @@ Item {
     property real zeroRoll:   0
     property real dispPitch:  userZero ? pitch - zeroPitch : pitch
     property real dispRoll:   userZero ? roll  - zeroRoll  : roll
+    property real dispPitchLabel: dispPitch
+	property real dispRollLabel:  dispRoll
+
+    // --- Label update timer — decouples text refresh from sensor rate ---
+    Timer {
+        id: labelUpdateTimer
+        interval: 250
+        repeat: true
+        running: true
+        onTriggered: {
+            root.dispPitchLabel = root.dispPitch
+            root.dispRollLabel  = root.dispRoll
+        }
+    }
 
     // --- Horizon mode (auto, blocked by userZero) ---
     // Hysteresis: enter >60°, exit <50°
@@ -193,10 +207,12 @@ Item {
         // --- X degree label (left end of X axis) ---
         Label {
             id: xAxisLabel
-            x: parent.width / 2 - scaleHalfWidth - width - Dims.l(2)
-            y: parent.height / 2 - height / 2
-            text: dispRoll.toFixed(1) + "°"
-            font.pixelSize:  Dims.l(9)
+            x: parent.width / 2 - scaleHalfWidth - Dims.l(4) - height / 2
+            y: parent.height / 2 + width / 2
+            rotation: -90
+            transformOrigin: Item.TopLeft
+            text: dispRollLabel.toFixed(1) + "°"
+            font.pixelSize:  Dims.l(10)
             font.family:     "Noto Sans"
             font.styleName:  "SemiCondensed SemiBold"
             color: "#ffffff"
@@ -227,9 +243,9 @@ Item {
         Label {
             id: yAxisLabel
             x: parent.width  / 2 - width / 2
-            y: parent.height / 2 - scaleHalfWidth - height - Dims.l(2)
-            text: dispPitch.toFixed(1) + "°"
-            font.pixelSize:  Dims.l(9)
+            y: parent.height / 2 - scaleHalfWidth - height - Dims.l(1)
+            text: dispPitchLabel.toFixed(1) + "°"
+            font.pixelSize:  Dims.l(10)
             font.family:     "Noto Sans"
             font.styleName:  "SemiCondensed SemiBold"
             color: "#ffffff"
@@ -304,8 +320,8 @@ Item {
                 topMargin: Dims.l(1.5)
             }
             text: {
-                if      (axisLock === 1) return dispRoll.toFixed(1)  + "°"
-                else if (axisLock === 2) return dispPitch.toFixed(1) + "°"
+                if      (axisLock === 1) return dispRollLabel.toFixed(1)  + "°"
+                else if (axisLock === 2) return dispPitchLabel.toFixed(1) + "°"
                 return ""
             }
             font.pixelSize:  Dims.l(12)
@@ -359,7 +375,7 @@ Item {
                 top: parent.bottom
                 topMargin: Dims.l(3)
             }
-            text: roll.toFixed(1) + "°"
+            text: dispRollLabel.toFixed(1) + "°"
             font.pixelSize:  Dims.l(12)
             font.family:     "Noto Sans"
             font.styleName:  "SemiCondensed SemiBold"
