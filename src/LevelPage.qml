@@ -73,7 +73,7 @@ Item {
     onPitchChanged: {
         if (userZero) return
         var absPitch = Math.abs(pitch)
-        if (!horizonMode && absPitch > 60 && axisLock === 0) horizonMode = true
+        if (!horizonMode && absPitch > 60 && axisLock === 0 && !frozen) horizonMode = true
         if ( horizonMode && absPitch < 50) horizonMode = false
     }
 
@@ -241,6 +241,19 @@ Item {
         }
 
         // --- X lock icon (right end of X axis) ---
+        Rectangle {
+            x: parent.width / 2 + scaleHalfWidth + Dims.l(2) - Dims.l(1)
+            y: parent.height / 2 - Dims.l(11) / 2
+            width:  Dims.l(11)
+            height: Dims.l(11)
+            radius: width / 2
+            color:  axisLock === 1 ? "#1A5C2A" : "#000000"
+            opacity: axisLock === 1 ? 0.7 : 0.4
+            Behavior on color   { ColorAnimation  { duration: 150 } }
+            Behavior on opacity { NumberAnimation { duration: 150 } }
+        }
+
+        // --- X lock icon (right end of X axis) ---
         Icon {
             id: xLockIcon
             visible: !horizonMode
@@ -250,12 +263,12 @@ Item {
             height: Dims.l(9)
             name: axisLock === 1 ? "ios-lock-outline" : "ios-unlock-outline"
             color: "#ffffff"
-            opacity: axisLock === 1 ? 0.9 : (axisLock === 0 ? 0.9 : 0.4)
+            opacity: axisLock === 1 ? 1.0 : (axisLock === 0 ? 0.9 : 0.4)
             Behavior on opacity { NumberAnimation { duration: 150 } }
 
             MouseArea {
                 anchors.fill: parent
-                anchors.margins: -Dims.l(4)
+                anchors.margins: -Dims.l(6)
                 onClicked: axisLock = (axisLock === 1) ? 0 : 1
             }
         }
@@ -276,6 +289,19 @@ Item {
         }
 
         // --- Y lock icon (bottom end of Y axis) ---
+        Rectangle {
+            x: parent.width  / 2 - Dims.l(11) / 2
+            y: parent.height / 2 + scaleHalfWidth + Dims.l(2) - Dims.l(1)
+            width:  Dims.l(11)
+            height: Dims.l(11)
+            radius: width / 2
+            color:  axisLock === 2 ? "#1A5C2A" : "#000000"
+            opacity: axisLock === 2 ? 0.7 : 0.4
+            Behavior on color   { ColorAnimation  { duration: 150 } }
+            Behavior on opacity { NumberAnimation { duration: 150 } }
+        }
+
+        // --- Y lock icon (bottom end of Y axis) ---
         Icon {
             id: yLockIcon
             visible: !horizonMode
@@ -285,12 +311,12 @@ Item {
             height: Dims.l(9)
             name: axisLock === 2 ? "ios-lock-outline" : "ios-unlock-outline"
             color: "#ffffff"
-            opacity: axisLock === 2 ? 0.9 : (axisLock === 0 ? 0.9 : 0.4)
+            opacity: axisLock === 2 ? 1.0 : (axisLock === 0 ? 0.9 : 0.4)
             Behavior on opacity { NumberAnimation { duration: 150 } }
 
             MouseArea {
                 anchors.fill: parent
-                anchors.margins: -Dims.l(4)
+                anchors.margins: -Dims.l(6)
                 onClicked: axisLock = (axisLock === 2) ? 0 : 2
             }
         }
