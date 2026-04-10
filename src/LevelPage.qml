@@ -43,17 +43,22 @@ Item {
     property bool userZero:   false
     property real zeroPitch:  0
     property real zeroRoll:   0
-    property real dispPitch:  userZero ? pitch - zeroPitch : pitch
-    property real dispRoll:   userZero ? roll  - zeroRoll  : roll
+    property real dispPitch: frozen ? frozenPitch : (userZero ? pitch - zeroPitch : pitch)
+    property real dispRoll:  frozen ? frozenRoll  : (userZero ? roll  - zeroRoll  : roll)
     property real dispPitchLabel: dispPitch
-	property real dispRollLabel:  dispRoll
+    property real dispRollLabel:  dispRoll
+    
+    // --- Freeze mode ---
+    property bool frozen:       false
+    property real frozenPitch:  0
+    property real frozenRoll:   0
 
     // --- Label update timer — decouples text refresh from sensor rate ---
     Timer {
         id: labelUpdateTimer
         interval: 250
         repeat: true
-        running: true
+        running: !root.frozen
         onTriggered: {
             root.dispPitchLabel = root.dispPitch
             root.dispRollLabel  = root.dispRoll
@@ -385,6 +390,35 @@ Item {
             font.styleName:  "SemiCondensed SemiBold"
             color: "#ffffff"
             opacity: 0.9
+        }
+    }
+
+    // =========================================================
+    // Freeze button — top-left quadrant
+    // =========================================================
+    Label {
+        id: freezeButton
+        visible: !horizonMode
+        x: parent.width  / 4 - width  / 2
+        y: parent.height / 4 - height / 2
+        text: "\u2744"
+        font.pixelSize: Dims.l(14)
+        color: "#ffffff"
+        opacity: frozen ? 0.9 : 0.4
+        Behavior on opacity { NumberAnimation { duration: 150 } }
+
+        MouseArea {
+            anchors.fill: parent
+            anchors.margins: -Dims.l(6)
+            onClicked: {
+                if (!frozen) {
+                    frozenPitch = dispPitch
+                    frozenRoll  = dispRoll
+                    frozen      = true
+                } else {
+                    frozen = false
+                }
+            }
         }
     }
 }
