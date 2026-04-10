@@ -81,10 +81,24 @@ Item {
     property int axisLock: 0
 
     // --- Scale geometry ---
-    property real scaleRange:     30        // degrees shown on each half-axis
-    property int  tickCount:      6         // ticks per side (5°, 10°, 15°, 20°, 25°, 30°)
-    property real tickStep:       5         // degrees per tick
-    property real scaleHalfWidth: Dims.l(36)  // half-length of scale lines from center
+    // scaleRange is the half-axis range in degrees (e.g. 20 = ±20°)
+    // Animated on change so ticks and dot position transition smoothly.
+    property real scaleRange: 30
+    Behavior on scaleRange { NumberAnimation { duration: 350; easing.type: Easing.InOutQuad } }
+
+    property int  tickCount: {
+        if (scaleRange <= 5)  return 5   // 1° steps
+        if (scaleRange <= 10) return 5   // 2° steps
+        if (scaleRange <= 15) return 3   // 5° steps
+        if (scaleRange <= 20) return 4   // 5° steps
+        return 6                          // 5° steps, ±30°
+    }
+    property real tickStep: {
+        if (scaleRange <= 5)  return 1
+        if (scaleRange <= 10) return 2
+        return 5
+    }
+    property real scaleHalfWidth: Dims.l(36)
     property real tickMajorLen:   Dims.l(4)
     property real tickMinorLen:   Dims.l(2.5)
 
@@ -418,6 +432,50 @@ Item {
                 } else {
                     frozen = false
                 }
+            }
+        }
+    }
+    
+    // =========================================================
+    // Range selector — bottom-right quadrant
+    // =========================================================
+    Item {
+        id: rangeSelector
+        visible: !horizonMode
+        x: parent.width  * 3 / 4 - width  / 2
+        y: parent.height * 3 / 4 - height / 2
+        width:  Dims.l(22)
+        height: Dims.l(18)
+
+        Label {
+            id: rangeLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            text: "Range"
+            font.pixelSize:  Dims.l(5)
+            font.family:     "Noto Sans"
+            font.styleName:  "SemiCondensed SemiBold"
+            color: "#ffffff"
+            opacity: 0.7
+        }
+
+        ValueCycler {
+            id: rangeCycler
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: rangeLabel.bottom
+            anchors.topMargin: Dims.l(0.5)
+            width:  Dims.l(20)
+            height: Dims.l(10)
+            valueArray:   ["±5°", "±10°", "±15°", "±20°", "±30°"]
+            currentValue: "±30°"
+            fontPixelSize:  Dims.l(6.4)
+            fontStyleName:  "Condensed Bold"
+            onValueChanged: {
+                if      (value === "±5°")  scaleRange = 5
+                else if (value === "±10°") scaleRange = 10
+                else if (value === "±15°") scaleRange = 15
+                else                       scaleRange = 20
+                currentValue = value
             }
         }
     }
