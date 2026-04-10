@@ -30,7 +30,7 @@ Item {
     property real smoothedX: 0
     property real smoothedY: 0
     property real smoothedZ: 1
-    property real smoothingFactor: 0.15
+    property real smoothingFactor: 0.14
 
     // --- Derived angles (degrees) ---
     // pitch: tilt top-edge down (away from user). Positive = top edge dips.
@@ -242,6 +242,7 @@ Item {
 
         // --- X lock icon (right end of X axis) ---
         Rectangle {
+            visible: !horizonMode            
             x: parent.width / 2 + scaleHalfWidth + Dims.l(2) - Dims.l(1)
             y: parent.height / 2 - Dims.l(11) / 2
             width:  Dims.l(11)
@@ -290,6 +291,7 @@ Item {
 
         // --- Y lock icon (bottom end of Y axis) ---
         Rectangle {
+            visible: !horizonMode            
             x: parent.width  / 2 - Dims.l(11) / 2
             y: parent.height / 2 + scaleHalfWidth + Dims.l(2) - Dims.l(1)
             width:  Dims.l(11)
@@ -327,18 +329,20 @@ Item {
     // =========================================================
     Rectangle {
         id: dot
-        width:  Dims.l(7)
-        height: Dims.l(7)
+        width:  Dims.l(5)
+        height: Dims.l(5)
         radius: width / 2
         color:  userZero ? "#FF4444" : "#ffffff"
         opacity: horizonMode ? 0.0 : 1.0
         visible: !horizonMode
+        rotation: axisLock === 2 ? -90 : 0
+        Behavior on rotation { NumberAnimation { duration: 150 } }
 
         x: dotTargetX - width  / 2
         y: dotTargetY - height / 2
 
         Behavior on x {
-            SmoothedAnimation { velocity: Dims.l(200); duration: 80 }
+            SmoothedAnimation { velocity: Dims.l(160); duration: 80 }
         }
         Behavior on y {
             SmoothedAnimation { velocity: Dims.l(200); duration: 80 }
@@ -357,6 +361,20 @@ Item {
             border.color: "#000000"
             border.width: Dims.l(0.4)
             z: -1
+        }
+
+        // --- Crosshair lines ---
+        Rectangle {
+            anchors.centerIn: parent
+            width:  parent.width + Dims.l(5)
+            height: Dims.l(0.6)
+            color:  parent.color
+        }
+        Rectangle {
+            anchors.centerIn: parent
+            width:  Dims.l(0.6)
+            height: parent.height + Dims.l(5)
+            color:  parent.color
         }
 
         // --- Dot value label (visible when axis is locked) ---
