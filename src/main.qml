@@ -28,7 +28,8 @@ Application {
 
     property int startBrightness: -1
 
-    Component.onCompleted:  DisplayBlanking.preventBlanking = true
+    DisplayBlanking { preventBlanking: true }
+
     Component.onDestruction: {
         if (startBrightness !== -1)
             displaySettings.brightness = startBrightness
