@@ -52,3 +52,25 @@ gravity. Tap the horizon line to return to dot mode by tilting back flat.
 - Use delta mode to measure relative angles — place the watch on a reference
   surface, tap the dot to zero, then move to the surface you want to compare.
 - Axis locks work in delta mode for single-plane relative measurements.
+
+## SailfishOS
+
+The `sailfishos` branch is the SailfishOS version, built for Sailfish OS
+5.1 on aarch64 and run on a Jolla C2. The level is the watch app; the
+scales keep the watch proportions across the phone's width.
+
+- The app reads the accelerometer, so it asks once for the Sensors
+  permission when it is started from the app grid (sandbox).
+- The brightness is raised to maximum while the app runs and set back
+  when it closes normally, as on the watch. If the app is killed, the
+  brightness stays at maximum.
+- Install: `devel-su pkcon install-local harbour-asteroid-horizon-1.0.0-1.aarch64.rpm`
+  (aarch64 only).
+- Build: `mb2 -t SailfishOS-5.1.0.11-aarch64 build` with the Sailfish
+  Platform SDK. The port uses small stand-ins for the AsteroidOS
+  controls and SailfishOS's own display settings.
+
+```
+Disclosure: LLMGD-2 · origin O0 (LLM-ported overnight; checked through window grabs on one Jolla C2; not used or read by a human; self-graded)
+LLMGD: v0.2; assurance=A2; flags=T; origin={O0:.9,O1:.1}; origin_headline=O0; scope=port(code+assets+packaging+docs); graded-by=claude-opus-5-5; retrieval=author-side
+```

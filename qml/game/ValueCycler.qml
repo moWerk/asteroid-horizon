@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick
-import org.asteroid.controls
+import QtQuick 2.6
+import "."
 
 /*!
     \qmltype ValueCycler
@@ -41,7 +41,8 @@ Item {
         text: currentValue
         color: root.labelColor
         font.pixelSize: root.fontPixelSize
-        font.styleName: root.fontStyleName !== "" ? root.fontStyleName : font.styleName
+        // a binding that falls back to itself is a binding loop on Qt 5.6
+        Component.onCompleted: if (root.fontStyleName !== "") font.styleName = root.fontStyleName
         horizontalAlignment: Text.AlignHCenter
     }
 

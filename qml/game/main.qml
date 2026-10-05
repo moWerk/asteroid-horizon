@@ -15,16 +15,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick
-import org.asteroid.controls
-import org.asteroid.settings
-import Nemo.KeepAlive
+import QtQuick 2.6
+import QtGraphicalEffects 1.0
+import org.nemomobile.systemsettings 1.0
+import Nemo.KeepAlive 1.2
+import "."
 
-Application {
+// SailfishOS: Application of org.asteroid.utils draws a radial background;
+// here a plain Item does the same. DisplaySettings comes from
+// org.nemomobile.systemsettings instead of org.asteroid.settings.
+Item {
     id: app
+    anchors.fill: parent
 
-    centerColor: "#003D1A"
-    outerColor:  "#001508"
+    property color centerColor: "#003D1A"
+    property color outerColor:  "#001508"
+
+    RadialGradient {
+        anchors.fill: parent
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: app.centerColor }
+            GradientStop { position: 0.5; color: app.outerColor }
+        }
+    }
+
 
     property int startBrightness: -1
 

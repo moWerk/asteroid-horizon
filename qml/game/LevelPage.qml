@@ -15,10 +15,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick
-import QtSensors
-import org.asteroid.controls
-import org.asteroid.utils
+import QtQuick 2.6
+import QtSensors 5.2
+import "."
 
 Item {
     id: root

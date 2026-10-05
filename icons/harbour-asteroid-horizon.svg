@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<!-- Launcher icon for SailfishOS: square background as on the Terminal icon
+     (Sailfish Apps icon template, CC BY 3.0) in Horizon's green, with the
+     crosshair, scales and bubble of the level. -->
+<defs><radialGradient id="bg" cx="256" cy="256" r="256" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0a6b34"/><stop offset="1" stop-color="#001508"/></radialGradient></defs>
+<rect x="1.8" y="1.8" width="508.4" height="508.4" rx="8.5" ry="8.5" fill="url(#bg)"/>
+<g stroke="#ffffff" stroke-linecap="round" fill="none">
+  <line x1="96" y1="256" x2="416" y2="256" stroke-width="10"/>
+  <line x1="256" y1="96" x2="256" y2="416" stroke-width="10"/>
+  <g stroke-width="8" opacity="0.8">
+    <line x1="136" y1="232" x2="136" y2="280"/><line x1="196" y1="240" x2="196" y2="272"/>
+    <line x1="316" y1="240" x2="316" y2="272"/><line x1="376" y1="232" x2="376" y2="280"/>
+    <line x1="232" y1="136" x2="280" y2="136"/><line x1="240" y1="196" x2="272" y2="196"/>
+    <line x1="240" y1="316" x2="272" y2="316"/><line x1="232" y1="376" x2="280" y2="376"/>
+  </g>
+  <circle cx="256" cy="256" r="58" stroke-width="10" opacity="0.6"/>
+</g>
+<circle cx="286" cy="234" r="34" fill="#7CFFB2"/>
+</svg>

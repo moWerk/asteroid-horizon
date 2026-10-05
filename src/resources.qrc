@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>LevelPage.qml</file>
-        <file>ValueCycler.qml</file>
-    </qresource>
-</RCC>

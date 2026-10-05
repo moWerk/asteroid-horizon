@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-asteroid-horizon
+Exec=harbour-asteroid-horizon
+Name=Horizon
+Comment=A precision level and angle meter
+
+[X-Sailjail]
+# Sandboxed. The app reads the accelerometer (Sensors) and sets the display brightness while it runs.
+OrganizationName=net.mowerk
+ApplicationName=harbour-asteroid-horizon
+Permissions=Sensors
