@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-<!-- Launcher icon for SailfishOS: square background as on the Terminal icon
-     (Sailfish Apps icon template, CC BY 3.0) in Horizon's green, with the
-     crosshair, scales and bubble of the level. -->
-<defs><radialGradient id="bg" cx="256" cy="256" r="256" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0a6b34"/><stop offset="1" stop-color="#001508"/></radialGradient></defs>
-<rect x="1.8" y="1.8" width="508.4" height="508.4" rx="8.5" ry="8.5" fill="url(#bg)"/>
+<!-- Launcher icon for SailfishOS in the round shape of the stock Clock and
+     Browser icons (Sailfish Apps icon library, CC BY 3.0): an outer ring
+     with a diagonal gradient around an inner disc. Crosshair, scales and bubble of the level. -->
+<defs>
+<linearGradient id="ring" gradientUnits="userSpaceOnUse" x1="76.2" y1="435.8" x2="435.8" y2="76.2"><stop offset="0" stop-color="#06401f"/><stop offset="1" stop-color="#3fbf78"/></linearGradient>
+<radialGradient id="disc" cx="256" cy="256" r="190.7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0a6b34"/><stop offset="1" stop-color="#001a0a"/></radialGradient>
+</defs>
+<circle cx="256" cy="256" r="254.2" fill="url(#ring)"/>
+<circle cx="256" cy="256" r="190.7" fill="url(#disc)"/>
+<g transform="translate(256 256) scale(0.86) translate(-256 -256)">
 <g stroke="#ffffff" stroke-linecap="round" fill="none">
   <line x1="96" y1="256" x2="416" y2="256" stroke-width="10"/>
   <line x1="256" y1="96" x2="256" y2="416" stroke-width="10"/>
@@ -16,4 +21,5 @@
   <circle cx="256" cy="256" r="58" stroke-width="10" opacity="0.6"/>
 </g>
 <circle cx="286" cy="234" r="34" fill="#7CFFB2"/>
+</g>
 </svg>
