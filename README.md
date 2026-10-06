@@ -55,6 +55,8 @@ gravity. Tap the horizon line to return to dot mode by tilting back flat.
 
 ## SailfishOS
 
+Reviewing the code? Start with [review-and-architecture-hints.md](review-and-architecture-hints.md).
+
 The `sailfishos` branch is the SailfishOS version, built for Sailfish OS
 5.1 on aarch64 and run on a Jolla C2. The level is the watch app; the
 scales keep the watch proportions across the phone's width.
