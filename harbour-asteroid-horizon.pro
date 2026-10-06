@@ -1,13 +1,21 @@
+# Pure QML, no binary: sailfish-qml (libsailfishapp-launcher) runs
+# qml/harbour-asteroid-horizon.qml, so one noarch package serves every architecture.
+TEMPLATE = aux
 TARGET = harbour-asteroid-horizon
 
-CONFIG += sailfishapp
+qml.files = qml
+qml.path = /usr/share/$${TARGET}
+desktop.files = $${TARGET}.desktop
+desktop.path = /usr/share/applications
+INSTALLS += qml desktop
 
-SOURCES += src/main.cpp
+for(size, $$list(86x86 108x108 128x128 172x172)) {
+    icon$${size}.files = icons/$${size}/$${TARGET}.png
+    icon$${size}.path = /usr/share/icons/hicolor/$${size}/apps
+    INSTALLS += icon$${size}
+}
 
-DISTFILES += qml/harbour-asteroid-horizon.qml \
-    qml/game/*.qml \
-    qml/game/qmldir \
-    rpm/harbour-asteroid-horizon.spec \
-    harbour-asteroid-horizon.desktop
-
-SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
+DISTFILES += qml/$${TARGET}.qml \
+    $$files(qml/game/*) \
+    rpm/$${TARGET}.spec \
+    $${TARGET}.desktop

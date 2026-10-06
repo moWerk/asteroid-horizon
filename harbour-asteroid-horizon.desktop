@@ -2,7 +2,7 @@
 Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-asteroid-horizon
-Exec=harbour-asteroid-horizon
+Exec=sailfish-qml harbour-asteroid-horizon
 Name=Horizon
 Comment=A precision level and angle meter
 

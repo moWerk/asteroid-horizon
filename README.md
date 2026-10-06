@@ -64,9 +64,7 @@ scales keep the watch proportions across the phone's width.
 - The brightness is raised to maximum while the app runs and set back
   when it closes normally, as on the watch. If the app is killed, the
   brightness stays at maximum.
-- Install: `devel-su pkcon install-local harbour-asteroid-horizon-1.1.0-1.<arch>.rpm`
-  (aarch64 for 4.5 and later, armv7hl for 3.4 and later, i486 for 4.5
-  and later).
+- Install: `devel-su pkcon install-local harbour-asteroid-horizon-1.2.0-1.noarch.rpm`
 - Build: `mb2 -t SailfishOS-5.1.0.11-aarch64 build` with the Sailfish
   Platform SDK. The port uses small stand-ins for the AsteroidOS
   controls and SailfishOS's own display settings.
@@ -110,4 +108,25 @@ What was checked, and what was not:
 ```
 Disclosure: LLMGD-2 · origin O1 (author's feature idea and switching design; LLM-implemented; camera state checked by log on one Jolla C2; the picture itself not seen; self-graded)
 LLMGD: v0.2; assurance=A2; flags=U,T; origin={O0:.7,O1:.3}; origin_headline=O0; scope=feature(code+packaging+docs); graded-by=claude-opus-5-5; retrieval=author-side
+```
+
+### Pure QML, one package for every phone (1.2.0)
+
+App developer poetaster pointed out in the forum that these ports need no
+compiled code. Since 1.2.0 the app is QML only: the system's `sailfish-qml`
+launcher runs it, and one `noarch` package serves aarch64, 32 bit ARM and
+x86, SailfishOS 3.4 to 5.1. Install with
+`devel-su pkcon install-local harbour-asteroid-horizon-1.2.0-1.noarch.rpm`;
+pkcon brings in the launcher (libsailfishapp-launcher) if it is missing.
+The package is compressed with xz, because rpm on SailfishOS 3.4 cannot
+unpack the zstd that newer SDKs use by default.
+
+The C++ start code only set the app name and held test hooks; they went, including the camera rotation override (the author confirmed the picture is upright on his C2).
+
+Checked: installed and started without QML warnings on a Jolla C2 (5.1),
+the Jolla Tablet (4.6) and a Jolla 1 (3.4).
+
+```
+Disclosure: LLMGD-3 · origin O1 (idea from a forum reply and the author's go; LLM-converted; start-checked by log on three devices; self-graded)
+LLMGD: v0.2; assurance=A3; flags=T; origin={O0:.7,O1:.3}; origin_headline=O0; scope=packaging+code; graded-by=claude-opus-5-5; retrieval=author-side
 ```
