@@ -7,7 +7,8 @@ Name=Horizon
 Comment=A precision level and angle meter
 
 [X-Sailjail]
-# Sandboxed. The app reads the accelerometer (Sensors) and sets the display brightness while it runs.
+# Sandboxed. The app reads the accelerometer (Sensors), shows the back camera
+# as background when held upright (Camera) and sets the display brightness while it runs.
 OrganizationName=net.mowerk
 ApplicationName=harbour-asteroid-horizon
-Permissions=Sensors
+Permissions=Sensors;Camera

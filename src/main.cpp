@@ -30,6 +30,14 @@ int main(int argc, char *argv[])
     app->setApplicationName(QStringLiteral("harbour-asteroid-horizon"));
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
+    // Test hooks: SFOS_SELFTEST_CAMERA=1 shows the viewfinder without
+    // tilting and logs the camera state; SFOS_HORIZON_CAM_ROTATION=<deg>
+    // overrides the viewfinder rotation, to correct it without a rebuild.
+    view->rootContext()->setContextProperty(QStringLiteral("selftestCamera"),
+                                            qEnvironmentVariableIsSet("SFOS_SELFTEST_CAMERA"));
+    view->rootContext()->setContextProperty(QStringLiteral("camRotationOverride"),
+                                            qEnvironmentVariableIsSet("SFOS_HORIZON_CAM_ROTATION")
+                                            ? qgetenv("SFOS_HORIZON_CAM_ROTATION").toInt() : -1);
     view->setSource(SailfishApp::pathToMainQml());
     view->show();
 

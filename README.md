@@ -64,8 +64,9 @@ scales keep the watch proportions across the phone's width.
 - The brightness is raised to maximum while the app runs and set back
   when it closes normally, as on the watch. If the app is killed, the
   brightness stays at maximum.
-- Install: `devel-su pkcon install-local harbour-asteroid-horizon-1.0.1-1.aarch64.rpm`
-  (aarch64 only).
+- Install: `devel-su pkcon install-local harbour-asteroid-horizon-1.1.0-1.<arch>.rpm`
+  (aarch64 for 4.5 and later, armv7hl for 3.4 and later, i486 for 4.5
+  and later).
 - Build: `mb2 -t SailfishOS-5.1.0.11-aarch64 build` with the Sailfish
   Platform SDK. The port uses small stand-ins for the AsteroidOS
   controls and SailfishOS's own display settings.
@@ -73,4 +74,40 @@ scales keep the watch proportions across the phone's width.
 ```
 Disclosure: LLMGD-2 · origin O0 (LLM-ported overnight; checked through window grabs on one Jolla C2; not used or read by a human; self-graded)
 LLMGD: v0.2; assurance=A2; flags=T; origin={O0:.9,O1:.1}; origin_headline=O0; scope=port(code+assets+packaging+docs); graded-by=claude-opus-5-5; retrieval=author-side
+```
+
+### Camera view in horizon mode (SailfishOS only, 1.1.0)
+
+Held upright, tilted more than 60° towards you, Horizon switches to
+horizon mode as before, and now the back camera's picture is the
+background behind the horizon line, so the line can be laid against
+the real world. Below 50° it goes back to the level on the green
+background.
+
+The switch has to be quick, so the camera is not started and stopped
+with it: it runs as long as the app is in front, and the level's
+background simply covers it (a 120 ms fade). While covered, the picture
+is not drawn. In the background the camera is released, so other apps
+can use it; returning to Horizon starts it again, the one moment it
+takes a little longer. The running camera costs battery while Horizon
+is open.
+
+The app now also asks for the Camera permission.
+
+What was checked, and what was not:
+- On a Jolla C2 (5.1) the camera starts to its active state, even with
+  the display off, and the viewfinder fills the screen (`SFOS_SELFTEST_CAMERA=1`
+  shows it without tilting and logs the camera state).
+- The picture is not rotated, as in the stock camera app, which sets no
+  rotation on its viewfinder either; the frames arrive in portrait.
+  Nobody has looked at the picture yet. If it is sideways or upside
+  down, `SFOS_HORIZON_CAM_ROTATION=90` (or 180, 270) on the command line
+  tries another rotation without a rebuild.
+- The switching speed and the readability of the scale over a bright
+  picture were not tried on the phone. All tests ran outside the
+  sandbox, from a shell.
+
+```
+Disclosure: LLMGD-2 · origin O1 (author's feature idea and switching design; LLM-implemented; camera state checked by log on one Jolla C2; the picture itself not seen; self-graded)
+LLMGD: v0.2; assurance=A2; flags=U,T; origin={O0:.7,O1:.3}; origin_headline=O0; scope=feature(code+packaging+docs); graded-by=claude-opus-5-5; retrieval=author-side
 ```

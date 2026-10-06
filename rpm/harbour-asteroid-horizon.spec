@@ -1,6 +1,6 @@
 Name:       harbour-asteroid-horizon
 Summary:    Horizon, a level and angle meter
-Version:    1.0.1
+Version:    1.1.0
 Release:    1
 License:    GPLv3+
 URL:        https://github.com/moWerk/asteroid-horizon
@@ -10,6 +10,7 @@ Requires:   qt5-qtgraphicaleffects
 Requires:   libkeepalive
 Requires:   nemo-qml-plugin-systemsettings
 Requires:   qt5-qtdeclarative-import-sensors
+Requires:   qt5-qtdeclarative-import-multimedia
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -18,7 +19,8 @@ BuildRequires:  desktop-file-utils
 
 %description
 Horizon is a precision level and angle meter: two axes from the
-accelerometer, each can be locked. Ported from AsteroidOS.
+accelerometer, each can be locked. Held upright, it shows the
+horizon over the back camera's picture. Ported from AsteroidOS.
 
 %prep
 %setup -q -n %{name}-%{version}
